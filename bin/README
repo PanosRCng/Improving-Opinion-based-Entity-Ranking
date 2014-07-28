@@ -13,46 +13,66 @@ System Requirements:
 Σχήματα αξιολόγησης οντοτήτων χρησιμοποιώντας τα review χρηστών:
 
 
- 1. αξιολόγηση χρησιμοποιώντας την μετρική BM25 -> bm25.cpp
+ 1. ( BM25std ) αξιολόγηση χρησιμοποιώντας την μετρική BM25 -> bm25.cpp
 
    - πρέπει να προηγηθεί parsing των reviews 
      και δημιουργία του inverted index -> offlineReviewInvertedIndex.cpp
 
 
- 2. αξιολόγηση χρησιμοποιώντας τις πολικότητες των απόψεων 
+ 2. ( SA ) αξιολόγηση χρησιμοποιώντας τις πολικότητες των απόψεων 
    στα aspects των reviews -> senti.cpp
 
-   () term version
+   ( lexicon-based SA )
     - πρέπει να προηγηθεί parsing των reviews και εξαγωγή της πολικότητας
       των απόψεων στα aspects -> offlineSentiments.cpp
 
-   () syntactic patterns version
+   ( syntactic patterns-based SA )
     - πρέπει να προηγηθεί parsing των reviews και εξαγωγή opinion φράσεων χρησιμοποιώντας 
       συντακτικά patterns -> offlinePhrases.cpp
     - πρέπει να προηγηθεί εξαγωγή της πολικότητας των απόψεων
       στα aspects με βάση τις opinion εκφράσεις -> offlinePhraseSentiments.cpp
 
 
- 3. αξιολόγηση χρησιμοποιώντας συνδυασμό της μετρικής BM25 και της πολικότητας 
-   των απόψεων στα aspects -> sentiBM25.cpp 
+ 3. ( sentiBM25 ) αξιολόγηση χρησιμοποιώντας συνδυασμό της μετρικής BM25 και της 
+    πολικότητας των απόψεων στα aspects -> sentiBM25.cpp 
+
    - πρέπει να προηγηθεί parsing των reviews και δημιουργία του 
      inverted index -> offlineReviewInvertedIndex.cpp
 
-   () term version
+   ( lexicon-based SA )
     - πρέπει να προηγηθεί εξαγωγή της πολικότητας των απόψεων
       στα aspects -> offlineSentiments.cpp
 
-   () syntactic patterns version
+   ( syntactic patterns-based SA )
     - πρέπει να προηγηθεί εξαγωγή opinion φράσεων χρησιμοποιώντας 
       συντακτικά patterns -> offlinePhrases.cpp
     - πρέπει να προηγηθεί εξαγωγή της πολικότητας των
       απόψεων στα aspects με βάση τις opinion εκφράσεις -> offlinePhraseSentiments.cpp
 
 
- 4. αξιολόγηση χρησιμοποιώντας τον αλγόριθμο ClustFuse του Kurland και την 
-    μετρική BM25 -> bm25kurland.cpp
+ 4. ( BM25std+kurland ) αξιολόγηση χρησιμοποιώντας τον αλγόριθμο ClustFuse του Kurland 
+   και την μετρική BM25 -> bm25kurland.cpp
 
    - πρέπει να προηγηθεί parsing των reviews 
      και δημιουργία του inverted index -> offlineReviewInvertedIndex.cpp
+
+
+ 5. ( BM25std+kurland+opinion-based clusters ) αξιολόγηση χρησιμοποιώντας τον αλγόριθμο 
+   ClustFuse του Kurland με την μετρική BM25 και opinion-based clsters (το clustering γίνεται
+   χρησιμοποιώντας ως fetures των κειμένων τις πολικότητες 
+   των απόψεων στα aspects) -> bm25kurlandsenti.cpp
+
+   - πρέπει να προηγηθεί parsing των reviews 
+     και δημιουργία του inverted index -> offlineReviewInvertedIndex.cpp
+
+   ( lexicon-based SA )
+    - πρέπει να προηγηθεί εξαγωγή της πολικότητας των απόψεων
+      στα aspects -> offlineSentiments.cpp
+
+   ( syntactic patterns-based SA )
+    - πρέπει να προηγηθεί εξαγωγή opinion φράσεων χρησιμοποιώντας 
+      συντακτικά patterns -> offlinePhrases.cpp
+    - πρέπει να προηγηθεί εξαγωγή της πολικότητας των
+      απόψεων στα aspects με βάση τις opinion εκφράσεις -> offlinePhraseSentiments.cpp
 
 
