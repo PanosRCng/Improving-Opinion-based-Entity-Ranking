@@ -19,7 +19,7 @@ System Requirements:
  - αξιολόγηση χρησιμοποιώντας τις πολικότητες των απόψεων 
    στα aspects των reviews -> senti.cpp
 
-   () standard version
+   () term version
     - πρέπει να προηγηθεί parsing των reviews και εξαγωγή της πολικότητας
       των απόψεων στα aspects -> offlineSentiments.cpp
 
@@ -34,7 +34,7 @@ System Requirements:
    - πρέπει να προηγηθεί parsing των reviews και δημιουργία του 
      inverted index -> offlineReviewInvertedIndex.cpp
 
-   () standard version
+   () term version
     - πρέπει να προηγηθεί εξαγωγή της πολικότητας των απόψεων
       στα aspects -> offlineSentiments.cpp
 
