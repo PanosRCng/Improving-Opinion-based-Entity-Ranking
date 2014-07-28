@@ -25,8 +25,8 @@ System Requirements:
    () syntactic patterns
     - πρέπει να προηγηθεί εξαγωγή opinion φράσεων χρησιμοποιώντας 
       συντακτικά patterns -> offlinePhrases.cpp
-    - πρέπει να προηγηθεί parsing των reviews και εξαγωγή της πολικότητας 
-      των απόψεων στα aspects -> offlinePhraseSentiments.cpp
+    - πρέπει να προηγηθεί εξαγωγή της πολικότητας των απόψεων
+      στα aspects με βάση τις opinion εκφράσεις -> offlinePhraseSentiments.cpp
 
  - αξιολόγηση χρησιμοποιώντας συνδυασμό της μετρικής BM25 και της πολικότητας 
    των απόψεων στα aspects -> sentiBM25.cpp 
@@ -34,13 +34,13 @@ System Requirements:
      inverted index -> offlineReviewInvertedIndex.cpp
 
    ()
-    - πρέπει να προηγηθεί parsing των reviews και εξαγωγή της πολικότητας 
-      των απόψεων στα aspects -> offlineSentiments.cpp
+    - πρέπει να προηγηθεί εξαγωγή της πολικότητας των απόψεων
+      στα aspects -> offlineSentiments.cpp
 
    () syntactic patterns
     - πρέπει να προηγηθεί εξαγωγή opinion φράσεων χρησιμοποιώντας 
       συντακτικά patterns -> offlinePhrases.cpp
-    - πρέπει να προηγηθεί parsing των reviews και εξαγωγή της πολικότητας των
-      απόψεων στα aspects -> offlinePhraseSentiments.cpp
+    - πρέπει να προηγηθεί εξαγωγή της πολικότητας των
+      απόψεων στα aspects με βάση τις opinion εκφράσεις -> offlinePhraseSentiments.cpp
 
 
