@@ -58,9 +58,9 @@ System Requirements:
 
 
  5. ( BM25std+kurland+opinion-based clusters ) αξιολόγηση χρησιμοποιώντας τον αλγόριθμο 
-   ClustFuse του Kurland με την μετρική BM25 και opinion-based clsters (το clustering γίνεται
-   χρησιμοποιώντας ως fetures των κειμένων τις πολικότητες 
-   των απόψεων στα aspects) -> bm25kurlandsenti.cpp
+   ClustFuse του Kurland με την μετρική BM25 και opinion-based clsters (το clustering 
+   πραγματοποιείται χρησιμοποιώντας ως fetures των κειμένων τις πολικότητες των απόψεων
+   στα aspects) -> bm25kurlandsenti.cpp
 
    - πρέπει να προηγηθεί parsing των reviews 
      και δημιουργία του inverted index -> offlineReviewInvertedIndex.cpp
