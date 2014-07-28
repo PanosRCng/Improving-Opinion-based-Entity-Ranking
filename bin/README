@@ -3,8 +3,8 @@
 System Requirements:
 
 	- c++
-	- boost libraries: http://www.boost.org/ 	(συγκεκριμένα χρησιμοποιήθηκε η έκδοση 1.53)
-	- python	(for the plotting tools and the google crawler)
+	- boost libraries: http://www.boost.org/  (συγκεκριμένα χρησιμοποιήθηκε η έκδοση 1.53)
+	- python (for the plotting tools and the google crawler)
 	- python-matplotlib (for plotting)
 
 
@@ -12,27 +12,35 @@ System Requirements:
 
 Σχήματα αξιολόγησης οντοτήτων χρησιμοποιώντας τα review χρηστών:
 
-	- αξιολόγηση χρησιμοποιώντας την μετρική BM25 -> bm25.cpp
-		- πρέπει να προηγηθεί parsing των reviews και δημιουργία του inverted index -> offlineReviewInvertedIndex.cpp
+ - αξιολόγηση χρησιμοποιώντας την μετρική BM25 -> bm25.cpp
+   - πρέπει να προηγηθεί parsing των reviews 
+     και δημιουργία του inverted index -> offlineReviewInvertedIndex.cpp
 
-	- αξιολόγηση χρησιμοποιώντας τις πολικότητες των απόψεων στα aspects των reviews -> senti.cpp
-		()
-		- πρέπει να προηγηθεί parsing των reviews και εξαγωγή της πολικότητας των απόψεων στα aspects -> offlineSentiments.cpp
+ - αξιολόγηση χρησιμοποιώντας τις πολικότητες των απόψεων 
+   στα aspects των reviews -> senti.cpp
+   ()
+    - πρέπει να προηγηθεί parsing των reviews και εξαγωγή της πολικότητας
+      των απόψεων στα aspects -> offlineSentiments.cpp
 
-		() syntactic patterns
-		- πρέπει να προηγηθεί εξαγωγή opinion φράσεων χρησιμοποιώντας συντακτικά patterns -> offlinePhrases.cpp
-		- πρέπει να προηγηθεί parsing των reviews και εξαγωγή της πολικότητας των
-									 απόψεων στα aspects -> offlinePhraseSentiments.cpp
+   () syntactic patterns
+    - πρέπει να προηγηθεί εξαγωγή opinion φράσεων χρησιμοποιώντας 
+      συντακτικά patterns -> offlinePhrases.cpp
+    - πρέπει να προηγηθεί parsing των reviews και εξαγωγή της πολικότητας 
+      των απόψεων στα aspects -> offlinePhraseSentiments.cpp
 
-	- αξιολόγηση χρησιμοποιώντας συνδυασμό της μετρικής BM25 και της πολικότητας των απόψεων στα aspects -> sentiBM25.cpp 
-		- πρέπει να προηγηθεί parsing των reviews και δημιουργία του inverted index -> offlineReviewInvertedIndex.cpp
+ - αξιολόγηση χρησιμοποιώντας συνδυασμό της μετρικής BM25 και της πολικότητας 
+   των απόψεων στα aspects -> sentiBM25.cpp 
+   - πρέπει να προηγηθεί parsing των reviews και δημιουργία του 
+     inverted index -> offlineReviewInvertedIndex.cpp
 
-		()
-		- πρέπει να προηγηθεί parsing των reviews και εξαγωγή της πολικότητας των απόψεων στα aspects -> offlineSentiments.cpp
+   ()
+    - πρέπει να προηγηθεί parsing των reviews και εξαγωγή της πολικότητας 
+      των απόψεων στα aspects -> offlineSentiments.cpp
 
-		() syntactic patterns
-		- πρέπει να προηγηθεί εξαγωγή opinion φράσεων χρησιμοποιώντας συντακτικά patterns -> offlinePhrases.cpp
-		- πρέπει να προηγηθεί parsing των reviews και εξαγωγή της πολικότητας των
-									 απόψεων στα aspects -> offlinePhraseSentiments.cpp
+   () syntactic patterns
+    - πρέπει να προηγηθεί εξαγωγή opinion φράσεων χρησιμοποιώντας 
+      συντακτικά patterns -> offlinePhrases.cpp
+    - πρέπει να προηγηθεί parsing των reviews και εξαγωγή της πολικότητας των
+      απόψεων στα aspects -> offlinePhraseSentiments.cpp
 
 
