@@ -23,7 +23,7 @@ System Requirements:
       των απόψεων στα aspects -> offlineSentiments.cpp
 
    () syntactic patterns
-    - πρέπει να προηγηθεί εξαγωγή opinion φράσεων χρησιμοποιώντας 
+    - πρέπει να προηγηθεί parsing των reviews και εξαγωγή opinion φράσεων χρησιμοποιώντας 
       συντακτικά patterns -> offlinePhrases.cpp
     - πρέπει να προηγηθεί εξαγωγή της πολικότητας των απόψεων
       στα aspects με βάση τις opinion εκφράσεις -> offlinePhraseSentiments.cpp
