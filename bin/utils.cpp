@@ -92,8 +92,6 @@ int Utils::parse_reviews(string src_review_dir, string dst_review_dir)
 // parse a review
 int Utils::parse_review(string src_review_path, string dst_review_path)
 {
-	unsigned int npos = 4294967295;
-
 	string line;
 
 	ofstream output (dst_review_path.c_str());
@@ -113,7 +111,7 @@ int Utils::parse_review(string src_review_path, string dst_review_path)
 				unsigned start_text = line.find("<TEXT>");
 				unsigned end_text = line.find("</TEXT>");
 
-				if(start_text != npos)
+				if(start_text != std::string::npos)
 				{
 					list<string> sentences;			// get paragraph and slit to sentences
 					paragraph = line.substr(start_text+6, (end_text-start_text-6)); 
@@ -127,7 +125,7 @@ int Utils::parse_review(string src_review_path, string dst_review_path)
 				unsigned start_favorite = line.find("<FAVORITE>");
 				unsigned end_favorite = line.find("</FAVORITE>");
 
-				if(start_favorite != npos)
+				if(start_favorite != std::string::npos)
 				{
 					list<string> sentences;			 // get paragraph and split to sentences
 					paragraph = line.substr(start_favorite+10, (end_favorite-start_favorite-10)); 
@@ -180,9 +178,12 @@ list<string> Utils::getSentences(string paragraph)
 			end_sentence = end_sentence_owau;
 		}
 
-		if(start_sentence != string::npos)
+		if(start_sentence != std::string::npos)
 		{
 			sentence = paragraph.substr(start_sentence, (end_sentence-start_sentence)); 
+
+			// trim trailing spaces
+			boost::trim(sentence);
 
 			if( (sentence.length() > 0) && (sentence.compare(" ")) )
 			{

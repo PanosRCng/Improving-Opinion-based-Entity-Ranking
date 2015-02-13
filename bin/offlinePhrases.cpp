@@ -38,7 +38,7 @@ int main()
 	string wordnet_path = "/home/panos/Desktop/LINUX_BACKUP/Opinion_MIning_and_Sentiment_Analysis/project/bin/WordNet/dict/";
 
 	// set the number of the judgment cases
-	int jud_numbers =1;
+	int jud_numbers =100;
 
 //	string Dinf = string(project_path + "D_inf_2009");
 

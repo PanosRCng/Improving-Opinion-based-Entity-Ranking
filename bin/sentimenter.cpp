@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "sentimenter.h"
 #include <boost/algorithm/string.hpp>
-#include "boost/tuple/tuple.hpp"
+#include <boost/tuple/tuple.hpp>
 #include "wordNet.h"
 #include "fileMapIO.h"
 #include <cmath>
@@ -158,8 +158,6 @@ int Sentimenter::loadSentiWordNet(void)
 
 map<string,double> Sentimenter::do_sentimentAnalysis(string reviewPath, map< string,vector<string> > aspects, Tagger* pos_tagger)
 {
-	unsigned int npos = 4294967295;
-
 	map<string,double> sentiments;
 
 	map<string,double> deviders;
@@ -195,7 +193,7 @@ map<string,double> Sentimenter::do_sentimentAnalysis(string reviewPath, map< str
 
 			for(int i=0; i<shifters.size(); i++)
 			{
-				if( sentence.find(shifters[i]) != npos )
+				if( sentence.find(shifters[i]) != std::string::npos )
 				{
 					negation = true;
 					break;
@@ -214,7 +212,7 @@ map<string,double> Sentimenter::do_sentimentAnalysis(string reviewPath, map< str
 					double senti_sentence_sum = 0.0;
 					double senti_sentence_counter = 0.0;
 
-					if( sentence.find(aspect) != npos )
+					if( sentence.find(aspect) != std::string::npos )
 					{
 						pair<map<string,double>::iterator,bool> ret2;
 						ret2 = deviders.insert( pair<string,double>( aspect_key, 1 ) );
@@ -287,8 +285,6 @@ map<string,double> Sentimenter::do_sentimentAnalysis(string reviewPath, map< str
 map<string,double> Sentimenter::do_sentimentAnalysis2(string reviewPath, map< string,vector<string> > aspects, Tagger* pos_tagger, map<string,double>* sos)
 {
 	map<string,double> sentiments;
-
-	unsigned int npos = 4294967295;
 	map<string,double> deviders;
 
 	map<string,int> sentiLexicon;
@@ -328,7 +324,7 @@ map<string,double> Sentimenter::do_sentimentAnalysis2(string reviewPath, map< st
 					string aspect = query.at(i);
 					double so_sum = 0.0;
 
-					if( sentence.find(aspect) != npos )
+					if( sentence.find(aspect) != std::string::npos )
 					{
 						pair<map<string,double>::iterator,bool> ret2;
 						ret2 = deviders.insert( pair<string,double>( aspect_key, 1 ) );
@@ -386,7 +382,6 @@ vector<string> Sentimenter::getPhrases(string index_file, vector<string> aspects
 {
 	vector<string> phrases;
 
-	unsigned int npos = 4294967295;
 	map<string,int> sentiLexicon;
 	sentiLexicon = loadSentiLexicon();
 
@@ -419,7 +414,7 @@ vector<string> Sentimenter::getPhrases(string index_file, vector<string> aspects
 			{
 				string aspect = aspects.at(i);
 
-				if( sentence.find(aspect) != npos )
+				if( sentence.find(aspect) != std::string::npos )
 				{
 					vector< boost::tuple<string,string> > tags;
 					tags = pos_tagger->do_sentence_tagging_map(sentence);

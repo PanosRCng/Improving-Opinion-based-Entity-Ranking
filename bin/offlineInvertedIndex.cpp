@@ -10,8 +10,6 @@ using namespace std;
 
 int main()
 {
-	unsigned int npos = 4294967295;
-
 // #############  set some enviroment variables here  ####################
 
 	// set the project path here

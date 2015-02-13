@@ -12,8 +12,15 @@
 #include "knearest.h"
 #include "kurland.h"
 #include "wordNet.h"
+#include "sentimenter.h"
+
 
 using namespace std;
+
+bool b_compare(const boost::tuple<string,double> &lhs, const boost::tuple<string,double> &rhs)
+{
+	return lhs.get<1>() > rhs.get<1>();
+}
 
 int main()
 {
@@ -37,8 +44,8 @@ int main()
 	// set the WordNet path
 	string wordnet_path = "/home/panos/Desktop/LINUX_BACKUP/Opinion_MIning_and_Sentiment_Analysis/project/bin/WordNet/dict/";
 
-	// set the path to save the documents' features
-	string features_dir = project_path + "/bin/features/";
+	// set the path to save the documents' features this is the sentiments directory (we are doing opinion-based clustering)
+ 	string features_dir = project_path+"bin/sentimentsOffline/";
 
 	// set the number of the judgment cases
 	int jud_numbers =100;
@@ -78,6 +85,9 @@ int main()
 		invertedIndexer->fileToInvertedIndex(ii_path);
 		cout << "load invertedIndex of reviews ...... [ok]" << endl;
 
+		// load sentimenter
+		Sentimenter* sentimenter = new Sentimenter();
+
 		// for every judgment
 		for(int it_j=0; it_j<jud_numbers; it_j++)
 		{
@@ -97,39 +107,9 @@ int main()
 
 			cout << category_str << endl;
 
-			// aspect expansion using WordNet
-			vector<string> aspects;
-                        for(int i=0; i<category.size(); i++)
-                        {
-				string aspect = category.at(i);
-                        	vector<string> synonyms = wordnet->getSynonyms(aspect);
-
-				aspects.push_back(aspect);
-				for(int i=0; i<synonyms.size(); i++)
-				{
-					aspects.push_back(synonyms.at(i));
-				}
-                      	}
-                      	cout << "aspect_expansion     ...... [ok]" << endl;
-
 			// get the parsed reviews list, CL is used from the ClustFust algorithm (Kurland's schema)
 			vector<string> CL = vector<string>();
 			utils->getFilesList(reviews_dst, CL, false);
-
-			// get the features of the review files
-			for(int i=0; i<CL.size(); i++)
-			{
-				string doc_name = string(CL[i]);			
-				string doc_path = reviews_dst+doc_name;
-
-				// get the review's feature -> [term, term's_bm25_value]
-				map<string,double> feature=invertedIndexer->getFeature(doc_path,aspects);		
-
-				// save feature to disk
-				string feature_path = "features/" + doc_name;
-				FileMapIO::sentiMapToFile(feature_path, feature);
-			}
-			cout << "get features from CL docs ...... [ok]" << endl;
 
 			// cluster reviews files
 			map<int, vector<string> > clusters;
@@ -141,13 +121,14 @@ int main()
 
 			// alternative clustering algorithm
 			//Kmeans* kmeans = new Kmeans();
-			//clusters = kmeans->do_kmeans("features", 10);
+			//clusters = kmeans->do_kmeans(features_dir, 3);
 
 			cout << "get clusters	...... [ok]" << endl;
 
 			// use only 5 disambiguation queries for the ClustFuse algorithm --> speed choice, tested with all queries, the same results
 			int query_counter = 5;
 			int counter = 0;
+
 
 			// for every judgment query use 5 disambiguation queries and for every disambiguation query get a document ranking list using BM25
 			map<string, vector<double> > lists;
@@ -160,8 +141,73 @@ int main()
 
 				counter++;
 
+				// make query expansion
 				string q = iq->get<0>();
 				vector<string> query_vector = utils->getQueryVec(q);
+
+				vector<string> exp_query_vector;
+	                        for(int i=0; i<query_vector.size(); i++)
+	                        {
+					string query_term = query_vector.at(i);
+	                        	vector<string> exp = wordnet->getSynonyms(query_term);
+
+					exp_query_vector.push_back(query_term);
+					for(int i=0; i<exp.size(); i++)
+					{
+						exp_query_vector.push_back(exp.at(i));
+					}
+	                      	}
+
+
+			/*
+				get ranking lists speed up code -- get the first N most relevant documents
+				-- !!!! for test puprpose only !!! ---
+
+				// get bm25 for every document
+				vector< boost::tuple<string, double > > tmp_rlist;
+				vector< boost::tuple<string, double > >	rlist;
+				for(int i=0; i<CL.size(); i++)
+				{
+					string doc_name = string(CL[i]);
+					double bm25 = invertedIndexer->getBM25(doc_name, exp_query_vector);	
+
+					tmp_rlist.push_back( boost::tuple<string,double>(doc_name, bm25) );
+				}
+			
+				// get the first N most relevant
+				sort(tmp_rlist.begin(),tmp_rlist.end(),b_compare); 
+				for(int i=0; i<N; i++)
+				{
+					rlist.push_back(tmp_rlist.at(i));
+				}
+
+				for(int i=0; i<rlist.size(); i++)
+				{
+					string d = rlist.at(i).get<0>();
+					double bm25 = rlist.at(i).get<1>(); 
+
+					map< string, vector<double > >::iterator iter_l = lists.find(d);
+	
+					if( iter_l != lists.end() )
+					{
+						vector<double> *list;
+						list = &iter_l->second;
+
+						list->push_back(bm25);
+					}
+					else
+					{
+						vector<double> list;
+						list.push_back(bm25);
+
+						lists.insert( pair< string,vector<double> >(d, list) );
+					}
+				}
+			}
+			cout << "get ranking lists	...... [ok]" << endl;
+
+			*/
+
 
 				for(int i=0; i<CL.size(); i++)
 				{
@@ -189,7 +235,7 @@ int main()
 			}
 			cout << "get ranking lists	...... [ok]" << endl;
 
-			// do the ClustFuse algorithm using the Kurland object to give a score to every document -- same variables' naming as the paper
+			// do the ClustFuse algorithm using the Kurland object to give a score to every document -- same variable naming as in Kurlands' paper, kind of
 			vector< boost::tuple<string, double> > P_q_ds;
 			Kurland* kurland = new Kurland();
 			P_q_ds = kurland->getP_q_ds(CL, clusters, lists, features_dir);
@@ -211,6 +257,8 @@ int main()
 					}
 				}
 
+				cout << entity << " " << p_q_di << endl;
+
 				scores.push_back( boost::tuple<string, double>( entity, p_q_di ) );				
 			}
 
@@ -222,15 +270,14 @@ int main()
 			// calculate the nDCG value of the ranking list, on the top 10 results
 			double nDCG = scorer->getNDCG(scores, i_scores);
 
+
 			cout << " nDCG= " << nDCG << endl;
 
 			// write results to file
 			results << result_counter << "\t" << nDCG << "\n";
 
-			result_counter++;
 
-			// delete review feature files
-			utils->deleteFiles("features");
+			result_counter++;
 		}
 
 		results.close();

@@ -11,10 +11,6 @@
 
 using namespace std;
 
-bool b_compare(const boost::tuple<string,double> &lhs, const boost::tuple<string,double> &rhs)
-{
-	return lhs.get<1>() > rhs.get<1>();
-}
 
 int main()
 {
@@ -39,7 +35,7 @@ int main()
 	string senti_path = project_path+"bin/sentimentsOffline/";
 
 	// set the number of the judgment cases
-	int jud_numbers = 1;
+	int jud_numbers = 100;
 
 	// set the path for the sentiment orientations
 	string so_path = project_path+"bin/SOS/"+"2008sos";

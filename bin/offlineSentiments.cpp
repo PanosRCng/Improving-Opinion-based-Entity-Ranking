@@ -11,10 +11,11 @@
 
 using namespace std;
 
-bool b_compare(const boost::tuple<string,double> &lhs, const boost::tuple<string,double> &rhs)
+/*bool b_compare(const boost::tuple<string,double> &lhs, const boost::tuple<string,double> &rhs)
 {
 	return lhs.get<1>() > rhs.get<1>();
 }
+*/
 
 int main()
 {

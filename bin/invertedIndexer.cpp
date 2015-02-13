@@ -69,8 +69,6 @@ void InvertedIndexer::loadStopWords(void)
 // builds an inverted index for the files in directory
 int InvertedIndexer::buildInvertedIndex(vector<string>* files, Tagger* pos_tagger, map<string, int>* aspects)
 {
-	unsigned int npos = 4294967295;
-
 	total_documents = 0;
 	avg_file_size = 0.0;
 
@@ -108,7 +106,7 @@ int InvertedIndexer::buildInvertedIndex(vector<string>* files, Tagger* pos_tagge
 				bool stop_char=false;
 				for(int i=0; i<stopwords.size(); i++)
 				{
-					if( term.find(stopwords[i]) != npos )
+					if( term.find(stopwords[i]) != std::string::npos )
 					{
 						stop_char=true;
 					}
@@ -222,8 +220,6 @@ map<string,int> InvertedIndexer::fileToInvertedIndexPhrases(string filename)
 {
 	map<string,int> ii;
 
-	unsigned int npos = 4294967295;
-
 	ifstream myfile(filename.c_str());
 
 	if (myfile.is_open())
@@ -252,8 +248,6 @@ map<string,int> InvertedIndexer::buildPhrasesInvertedIndex(vector<string>* files
 {
 	map<string,int> ii;
 
-	unsigned int npos = 4294967295;
-
 	total_documents = 0;
 	avg_file_size = 0.0;
 
@@ -277,7 +271,7 @@ map<string,int> InvertedIndexer::buildPhrasesInvertedIndex(vector<string>* files
 			{
 			    string term = good_terms->at(j);
 
-			    if( line.find(term) != npos)
+			    if( line.find(term) != std::string::npos)
 			    {
 				pair<map<string,int>::iterator,bool> ret;
 				ret = ii.insert( pair<string,int>( "+", 1 ) );
@@ -296,7 +290,7 @@ map<string,int> InvertedIndexer::buildPhrasesInvertedIndex(vector<string>* files
 			{
 			    string term = bad_terms->at(j);
 
-			    if( line.find(term) != npos)
+			    if( line.find(term) != std::string::npos)
 			    {
 				pair<map<string,int>::iterator,bool> ret;
 				ret = ii.insert( pair<string,int>( "-", 1 ) );
@@ -315,7 +309,7 @@ map<string,int> InvertedIndexer::buildPhrasesInvertedIndex(vector<string>* files
 			{
 			    string phrase = phrases->at(j);
 
-			    if( line.find(phrase) != npos)
+			    if( line.find(phrase) != std::string::npos)
 			    {
 				if( good_flag )
 				{
@@ -356,8 +350,6 @@ map<string, double> InvertedIndexer::calculateSOS(map<string, int>* ii_phrases)
 {
 	map<string, double> sos;
 
-	unsigned int npos = 4294967295;
-
 	int pos_hits=0;
 	map<string,int>::iterator iter_pos = ii_phrases->find("+");
 	if( iter_pos != ii_phrases->end() )
@@ -383,7 +375,7 @@ map<string, double> InvertedIndexer::calculateSOS(map<string, int>* ii_phrases)
 		int neg_phrase_hits = 0;
 		double so = 0.0;
 
-		if (npos != term.find("+"))
+		if (std::string::npos != term.find("+"))
 		{
 			vector<string> parts; 
 			boost::split(parts, term, boost::is_any_of("(+)"));
@@ -464,8 +456,6 @@ int InvertedIndexer::InvertedIndexToFile(string filename)
 // loads invertedIndex to memory from file
 int InvertedIndexer::fileToInvertedIndex(string filename) 
 {
-	unsigned int npos = 4294967295;
-
 	ifstream ifile;
 	ifile.open(filename.c_str());
 
@@ -483,7 +473,7 @@ int InvertedIndexer::fileToInvertedIndex(string filename)
 		int total_pos = line.find("%");
 		int avg_filesize_pos = line.find("*");
 		
-		if(term_pos != npos)	// get the invertedIndex
+		if(term_pos != std::string::npos)	// get the invertedIndex
 		{
 			string term = line.substr(0,term_pos);
 
@@ -492,7 +482,7 @@ int InvertedIndexer::fileToInvertedIndex(string filename)
 
 			vector<boost::tuple<std::string, int> > tfs;
 
-			while( dtf_pos != npos )
+			while( dtf_pos != std::string::npos )
 			{
 				string dtf = uptfs.substr(0,dtf_pos);
 				int d_pos = dtf.find("@");
@@ -508,7 +498,7 @@ int InvertedIndexer::fileToInvertedIndex(string filename)
 
 			invertedIndex.insert( pair<string, vector<boost::tuple<std::string, int> > >( term, tfs ) );
 		}
-		else if(termFilesize_pos != npos)	// get filesizes map
+		else if(termFilesize_pos != std::string::npos)	// get filesizes map
 		{
 			string file = line.substr(0,termFilesize_pos);
 
@@ -517,12 +507,12 @@ int InvertedIndexer::fileToInvertedIndex(string filename)
 
 			fileSizes.insert( pair<string,double>( file, filesize ) );		
 		}
-		else if(total_pos != npos)	// get total documents number
+		else if(total_pos != std::string::npos)	// get total documents number
 		{
 			string total_documents_s = line.substr(0,total_pos);
 			total_documents = atoi( total_documents_s.c_str() );
 		}
-		else if(avg_filesize_pos != npos)	// get average file size
+		else if(avg_filesize_pos != std::string::npos)	// get average file size
 		{
 			string avg_filesize_s = line.substr(0,avg_filesize_pos);
 			avg_file_size = atoi( avg_filesize_s.c_str() );
@@ -867,7 +857,6 @@ double InvertedIndexer::getSentiBM25(string filename, vector<string> query, stri
 		}
 		else
 		{
-		//	cout << "query term " <<  term << " can not found" << endl;
 			continue;
 		}
 

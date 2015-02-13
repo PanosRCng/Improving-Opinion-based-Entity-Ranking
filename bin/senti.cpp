@@ -29,7 +29,7 @@ int main()
 	string senti_path = project_path+"bin/sentimentsOffline/";
 
 	// set the number of the judgment cases
-	int jud_numbers = 1;
+	int jud_numbers = 100;
 
 //	string dir_Dinf = project_path + "/D_inf/";
 

@@ -29,7 +29,7 @@ vector< boost::tuple<string, double> > Kurland::getP_q_ds(vector<string> docs,
 		double f_d_q = calculate_F_d_q(d, &lists);
 		F_d_qs.insert( pair<string,double>(d, f_d_q) );
 	}
-	cout << "calculate F_d_qs .... [ok]" << endl;
+	//cout << "calculate F_d_qs .... [ok]" << endl;
 
 	// calculate first documents similarities matrix
 	map<string,double> similarities;
@@ -50,7 +50,7 @@ vector< boost::tuple<string, double> > Kurland::getP_q_ds(vector<string> docs,
 			}
 		}
 	}
-	cout << "calculate similarities ...... [ok]" << endl;
+	//cout << "calculate similarities ...... [ok]" << endl;
 
 	double l = 0.9;
 	double P_q_d = 0.0;

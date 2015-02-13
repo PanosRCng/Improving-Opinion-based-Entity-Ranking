@@ -173,7 +173,7 @@ vector<string> Tagger::do_tagging(string ifilename)
 		{
 			int dot_pos = s.find(".");
 
-			if(  dot_pos!= string::npos )
+			if(  dot_pos!= std::string::npos )
 			{
 				term = s.substr(0,dot_pos);
 			}
@@ -292,7 +292,7 @@ vector<string> Tagger::do_sentence_tagging(string line)
 		{
 			int dot_pos = s.find(".");
 
-			if(  dot_pos!= string::npos )
+			if(  dot_pos!= std::string::npos )
 			{
 				term = s.substr(0,dot_pos);
 			}
@@ -411,7 +411,7 @@ vector<string> Tagger::do_sentence_tagging_for_aspects(string line)
 		{
 			int dot_pos = s.find(".");
 
-			if(  dot_pos!= string::npos )
+			if(  dot_pos!= std::string::npos )
 			{
 				term = s.substr(0,dot_pos);
 			}
@@ -528,7 +528,7 @@ vector< boost::tuple<string, string> > Tagger::do_sentence_tagging_map(string li
 
 		int dot_pos = s.find(".");
 
-		if(  dot_pos!= string::npos )
+		if(  dot_pos!= std::string::npos )
 		{
 			term = s.substr(0,dot_pos);
 		}
